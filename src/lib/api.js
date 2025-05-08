@@ -1,23 +1,15 @@
 export async function fetchQuestions() {
     try {
-      const res = await fetch('https://opentdb.com/api.php?amount=3&type=multiple');
+      const res = await fetch('https://quizzapi.jomoreschi.fr/api/v1/quiz?limit=5');
       if (!res.ok) throw new Error('Échec du chargement');
       const data = await res.json();
   
       // Transformation des données vers ton format : { question, choices[], answer }
-      const formatted = data.results.map(q => {
-        const allChoices = [...q.incorrect_answers, q.correct_answer];
-        // Mélange les choix
-        const shuffled = allChoices.sort(() => Math.random() - 0.5);
-  
-        return {
-          question: q.question,
-          choices: shuffled,
-          answer: q.correct_answer
-        };
-      });
-  
-      return formatted;
+      return data.quizzes.map((item, index) => ({
+        question: item.question,
+        choices: [...item.badAnswers, item.answer],
+        answer: item.answer
+      }));
     } catch (error) {
       console.error('Erreur dans fetchQuestions:', error);
       return [];

@@ -48,10 +48,10 @@
   {#if submitted}
     <div class="feedback mt-4">
       {#if selectedAnswer === question.answer}
-        <p class="text-green-600 font-semibold">✅ Correct answer!</p>
+        <p class="text-green-600 font-semibold">✅ Bonne réponse!</p>
       {:else}
         <p class="text-red-600 font-semibold">
-          ❌ Wrong answer.
+          ❌ C'est faux.
         </p>
       {/if}
     </div>
