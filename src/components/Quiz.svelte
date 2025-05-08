@@ -54,7 +54,8 @@
 <div class="flex justify-center mt-8">
   <button
     on:click={handleSubmit}
-    class="bg-blue-600 text-white px-6 py-2 rounded hover:bg-blue-700 transition"
+    disabled={submitted}
+    class="bg-blue-600 text-white px-6 py-2 rounded hover:bg-blue-700 disabled:bg-gray-400 disabled:text-gray-300 disabled:cursor-not-allowed transition-all"
   >
     Soumettre
   </button>
