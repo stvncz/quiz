@@ -32,8 +32,11 @@
     {#each question.choices as choice}
       <label
         class="block mb-2 rounded cursor-pointer"
-        class:bg-green-100={submitted && choice === question.answer}
-        class:bg-red-100={submitted &&
+        class:text-green-500={submitted && choice === question.answer}
+        class:font-bold={(submitted && choice === question.answer) || submitted &&
+          selectedAnswer === choice &&
+          choice !== question.answer}
+        class:text-red-500={submitted &&
           selectedAnswer === choice &&
           choice !== question.answer}
       >
@@ -50,16 +53,6 @@
       </label>
     {/each}
   </div>
-
-  {#if submitted}
-    <div class="feedback mt-4">
-      {#if selectedAnswer === question.answer}
-        <p class="text-green-600 font-semibold">✅ Bonne réponse!</p>
-      {:else}
-        <p class="text-red-600 font-semibold">❌ C'est faux.</p>
-      {/if}
-    </div>
-  {/if}
 </div>
 
 <style>
