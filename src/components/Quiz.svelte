@@ -36,17 +36,20 @@
 {:else}
   {#each questions as question, index}
     <div class="mb-4">
-      <Question 
+      <Question
         {question}
         {index}
         {submitted}
-        on:answerSelected={handleAnswerSelected} />
+        on:answerSelected={handleAnswerSelected}
+      />
     </div>
   {/each}
 
   {#if submitted}
     <div class="score mt-4 p-4 bg-gray-100 rounded">
-      <p class="text-xl font-semibold">Votre score: {score} / {questions.length}</p>
+      <p class="text-xl font-semibold">
+        Votre score: {score} / {questions.length}
+      </p>
     </div>
   {/if}
 {/if}

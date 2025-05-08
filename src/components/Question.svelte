@@ -1,5 +1,5 @@
 <script>
-  import { createEventDispatcher } from 'svelte';
+  import { createEventDispatcher } from "svelte";
 
   export let question; // Contains the question, choices, and the correct answer
   export let index;
@@ -12,25 +12,31 @@
   // Function to handle selection change
   function handleSelect(event) {
     selectedAnswer = event.target.value;
-    dispatch('answerSelected', { index, selectedAnswer });
+    dispatch("answerSelected", { index, selectedAnswer });
   }
 
   // Decodes HTML entities (quotes, apostrophes, etc.)
   function decodeHtml(str) {
-    const txt = document.createElement('textarea');
+    const txt = document.createElement("textarea");
     txt.innerHTML = str;
     return txt.value;
   }
 </script>
 
-<div class="question p-4 my-4 bg-white rounded shadow-md">
+<div
+  class="question p-4 my-4 bg-white-50 dark:bg-zinc-500 rounded shadow-md text-gray-700 dark:text-zinc-200"
+>
   <h2 class="text-2xl font-semibold">{decodeHtml(question.question)}</h2>
 
   <div class="choices mt-4">
     {#each question.choices as choice}
-      <label class="block mb-2 rounded cursor-pointer transition-colors duration-300"
+      <label
+        class="block mb-2 rounded cursor-pointer"
         class:bg-green-100={submitted && choice === question.answer}
-        class:bg-red-100={submitted && selectedAnswer === choice && choice !== question.answer}>
+        class:bg-red-100={submitted &&
+          selectedAnswer === choice &&
+          choice !== question.answer}
+      >
         <input
           type="radio"
           name={`question${index}`}
@@ -50,9 +56,7 @@
       {#if selectedAnswer === question.answer}
         <p class="text-green-600 font-semibold">✅ Bonne réponse!</p>
       {:else}
-        <p class="text-red-600 font-semibold">
-          ❌ C'est faux.
-        </p>
+        <p class="text-red-600 font-semibold">❌ C'est faux.</p>
       {/if}
     </div>
   {/if}
