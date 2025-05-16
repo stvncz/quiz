@@ -1,18 +1,25 @@
 <script>
-  import { createEventDispatcher } from "svelte";
+  import { createEventDispatcher, onMount } from "svelte";
 
-  export let question; // Contains the question, choices, and the correct answer
-  export let index;
-  export let submitted; // Boolean indicating if the quiz has been submitted
+  export let question; // { questionId, question, choices, userAnswer, correctAnswer, isCorrect }
+  export let index; 
+  export let submitted = false; // Boolean indicating if the quiz has been submitted
 
-  let selectedAnswer = ""; // The answer chosen by the user
-
+  let selectedAnswer = ""; // The answer selected by the user
   const dispatch = createEventDispatcher();
 
-  // Function to handle selection change
+  onMount(() => {
+    if (question.userAnswer) {
+      selectedAnswer = question.userAnswer;
+    }
+  });
+
   function handleSelect(event) {
     selectedAnswer = event.target.value;
-    dispatch("answerSelected", { index, selectedAnswer });
+    dispatch("answerSelected", {
+      index,
+      selectedAnswer
+    });
   }
 
   // Decodes HTML entities (quotes, apostrophes, etc.)
@@ -20,6 +27,14 @@
     const txt = document.createElement("textarea");
     txt.innerHTML = str;
     return txt.value;
+  }
+
+  function isCorrectChoice(choice) {
+    return submitted && choice === question.correctAnswer;
+  }
+
+  function isIncorrectChoice(choice) {
+    return submitted && choice === selectedAnswer && choice !== question.correctAnswer;
   }
 </script>
 
@@ -31,14 +46,13 @@
   <div class="choices mt-4">
     {#each question.choices as choice}
       <label
-        class="block mb-2 rounded cursor-pointer"
-        class:text-green-500={submitted && choice === question.answer}
-        class:font-bold={(submitted && choice === question.answer) || submitted &&
-          selectedAnswer === choice &&
-          choice !== question.answer}
-        class:text-red-500={submitted &&
-          selectedAnswer === choice &&
-          choice !== question.answer}
+        class="block mb-2 rounded transition-all cursor-pointer"
+        class:text-green-600={isCorrectChoice(choice)}
+        class:text-red-600={isIncorrectChoice(choice)}
+        class:font-bold={isCorrectChoice(choice) || isIncorrectChoice(choice)}
+        class:border-green-500={isCorrectChoice(choice)}
+        class:border-red-500={isIncorrectChoice(choice)}
+        class:border-gray-300={!submitted}
       >
         <input
           type="radio"
