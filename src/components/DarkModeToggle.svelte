@@ -7,7 +7,7 @@
 <div class="flex items-center gap-2">
   <!-- Soleil -->
   <span
-    class="transition-transform duration-300 text-white-400 dark:text-white text-gray-700"
+    class="transition-transform duration-300 dark:text-white text-zinc-300"
     class:rotate-[180deg]={!isDarkMode}
   >
     <svg
@@ -32,10 +32,10 @@
       on:change={() => toggleDarkMode(!isDarkMode)}
     />
     <span
-      class="absolute cursor-pointer top-0 left-0 right-0 bottom-0 bg-gray-400 rounded-full transition-colors duration-300 peer-checked:bg-blue-500"
+      class="absolute cursor-pointer top-0 left-0 right-0 bottom-0 bg-zinc-300 rounded-full transition-colors duration-300 peer-checked:bg-zinc-600"
     ></span>
     <span
-      class="absolute left-1 top-1 w-3 h-3 bg-white rounded-full transition-transform duration-300 peer-checked:translate-x-5"
+      class="absolute left-1 top-1 w-3 h-3 bg-zinc-200 rounded-full transition-transform duration-300 peer-checked:translate-x-5"
     ></span>
   </label>
 
