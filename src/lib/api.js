@@ -1,4 +1,4 @@
-const API_BASE = import.meta.env.VITE_API_BASE || "http://localhost:3000";
+const API_BASE = import.meta.env.VITE_API_BASE || "/api";
 
 /**
  * Fetches quiz questions from the API.
@@ -11,7 +11,7 @@ const API_BASE = import.meta.env.VITE_API_BASE || "http://localhost:3000";
  */
 export async function fetchQuestions() {
   try {
-    const res = await fetch(`${API_BASE}/api/quiz`);
+    const res = await fetch(`${API_BASE}/quiz`);
     if (!res.ok) throw new Error("Échec du chargement");
     const data = await res.json();
 
