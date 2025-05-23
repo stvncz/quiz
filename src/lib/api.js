@@ -39,7 +39,7 @@ export async function fetchQuestions() {
  */
 export async function validateAnswers(answers) {
   try {
-    const res = await fetch(`${API_BASE}/api/validate`, {
+    const res = await fetch(`${API_BASE}/validate`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ answers }),
