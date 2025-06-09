@@ -1,21 +1,23 @@
 # 🧠 Daily Quiz
 
-Une application de quiz web qui propose chaque jour 10 questions de culture générale.  
+Une application de quiz web qui propose chaque jour 5 questions de culture générale.  
 Le projet est développé avec **Svelte** et **Tailwind CSS**.
+
+> ✨ Disponible en ligne : [quiz.stvn.cz](https://quiz.stvn.cz)
 
 ## ✨ Fonctionnalités
 
-- 10 questions aléatoires par session
+- 5 questions aléatoires par session
 - Correction instantanée après soumission
 - Affichage du score
-- Chargement dynamique des questions via une API (Open Trivia DB)
+- Chargement dynamique des questions via une [Quizz API](https://quizzapi.jomoreschi.fr/)
 - Responsive & stylé avec Tailwind CSS
 
 ## 🧪 Technologies utilisées
 
 - [Svelte](https://svelte.dev/)
 - [Tailwind CSS](https://tailwindcss.com/)
-- [Open Trivia DB](https://opentdb.com/) (API de questions — temporaire)
+- API Node.js perso (récupération des questions, gestion du quiz journalier et validation)
 - [Vite](https://vitejs.dev/) pour le développement
 
 ## 🚀 Lancer le projet en local
@@ -41,13 +43,19 @@ src/
 ├── api.js              # Appels à l'API de questions
 └── assets/             # Images, JSON, etc.
 
+## 🔐 Environnement & déploiement
+
+Un fichier .env peut être utilisé pour définir l'URL de l'API.
+Un script de déploiement local deploy.sh est disponible (non versionné) pour publication rapide sur le serveur via rsync ou scp.
+
+
 ## 📌 À venir
 
-- Intégration d’une API en français
-- Page d’accueil avec score précédent
-- Système de quiz quotidien basé sur la date
+- Possibilité de rejouer le quiz de la veille
+- Historique des scores
+- N'hésitez pas à proposer!
 
 
 ## 🧑‍💻 Auteur
 
-Développé avec ❤️ par stvncz
+Développé avec ☕ par stvncz
