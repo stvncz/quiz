@@ -30,7 +30,7 @@
     userAnswers.set(question.questionId || question.id, selectedAnswer);
   }
 
-  async function submit2() {
+  async function submit() {
     submitted = true;
     const answers = Array.from(userAnswers.entries()).map(
       ([questionId, answer]) => ({
@@ -40,29 +40,18 @@
     );
 
     try {
-      result = await validateAnswers(answers);
-    } catch (err) {
-      error = "Erreur lors de la validation des réponses.";
-    }
-  }
-
-  async function submit() {
-    submitted = true;
-    const answers = Array.from(userAnswers.entries()).map(
-      ([questionId, answer]) => ({
-      questionId,
-      answer
-    }));
-
-    try {
       const validation = await validateAnswers(answers);
       result = validation;
       score = validation.score;
 
-      // On remplace chaque question par sa version corrigée venant du backend
-      questions = validation.results;
+      questions = questions.map((q) => {
+        const result = validation.results.find(
+          (r) => r.questionId === q.questionId
+        );
+        return result ? { ...q, ...result } : q;
+      });
     } catch (err) {
-      error = 'Erreur lors de la validation des réponses.';
+      error = "Erreur lors de la validation des réponses.";
       console.error(error, err);
     }
   }
@@ -73,13 +62,13 @@
 {:else}
   <form on:submit|preventDefault={submit} class="space-y-6">
     {#each questions as question, index}
-        <Question
-          {question}
-          {index}
-          {submitted}
-          on:answerSelected={handleAnswerSelected}
-        />
-      {/each} 
+      <Question
+        {question}
+        {index}
+        {submitted}
+        on:answerSelected={handleAnswerSelected}
+      />
+    {/each}
 
     <div class="flex justify-center mt-8">
       <button
