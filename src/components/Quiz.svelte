@@ -50,6 +50,8 @@
         );
         return result ? { ...q, ...result } : q;
       });
+
+      window.scrollTo({ top: 0, behavior: 'smooth' });
     } catch (err) {
       error = "Erreur lors de la validation des réponses.";
       console.error(error, err);
@@ -60,6 +62,13 @@
 {#if isLoading}
   <Loader message="Chargement des questions..." />
 {:else}
+  {#if submitted && result}
+    <div class="score mb-4 p-4 bg-gray-100 rounded">
+      <p class="text-xl text-center font-semibold">
+        Votre score: {result.score} / {questions.length}
+      </p>
+    </div>
+  {/if}
   <form on:submit|preventDefault={submit} class="space-y-6">
     {#each questions as question, index}
       <Question
@@ -80,12 +89,4 @@
       </button>
     </div>
   </form>
-
-  {#if submitted && result}
-    <div class="score mt-4 p-4 bg-gray-100 rounded">
-      <p class="text-xl font-semibold">
-        Votre score: {result.score} / {questions.length}
-      </p>
-    </div>
-  {/if}
 {/if}
